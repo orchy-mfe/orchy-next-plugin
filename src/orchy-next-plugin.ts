@@ -16,25 +16,25 @@ const IMPORT_HTML_OPTIONS: ImportEntryOpts = {
 
 @customElement('orchy-next-plugin')
 export class OrchyStoragePlugin extends OrchySpaAdapter {
-  private checkNextPath(orchyProperties?: any) {
-    if (!orchyProperties.nextPath) {
-      throw new Error('nextPath has not been defined')
+  private checkNextBase(orchyProperties?: any) {
+    if (!orchyProperties.nextBase) {
+      throw new Error('nextBase has not been defined')
     }
   }
 
-  private async manageTemplate(orchyProperties?: any, path = '/'): Promise<void> {
-    const importResult = await importHTML(lightJoin(orchyProperties.nextPath, path), IMPORT_HTML_OPTIONS)
-    importResult.execScripts()
+  private async manageTemplate(orchyProperties?: any): Promise<void> {
+    const importResult = await importHTML(lightJoin(orchyProperties.nextBase, orchyProperties.nextPath), IMPORT_HTML_OPTIONS)
 
     const importedTemplate = document.createRange().createContextualFragment(importResult.template)
-    importedTemplate.querySelectorAll(RELATIVE_HREF_SELECTOR).forEach(element => element.setAttribute('href', orchyProperties.nextPath + element.getAttribute('href')))
-    importedTemplate.querySelectorAll(RELATIVE_SRC_SELECTOR).forEach(element => element.setAttribute('src', orchyProperties.nextPath + element.getAttribute('src')))
+    importedTemplate.querySelectorAll(RELATIVE_HREF_SELECTOR).forEach(element => element.setAttribute('href', orchyProperties.nextBase + element.getAttribute('href')))
+    importedTemplate.querySelectorAll(RELATIVE_SRC_SELECTOR).forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
 
     this.getContainer().replaceChildren(importedTemplate)
+    await importResult.execScripts()
   }
 
   async mount(orchyProperties?: any): Promise<void> {
-    this.checkNextPath(orchyProperties)
+    this.checkNextBase(orchyProperties)
     await this.manageTemplate(orchyProperties)
   }
 

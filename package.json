@@ -1,0 +1,49 @@
+{
+  "name": "@orchy-mfe/next-plugin",
+  "version": "0.1.1",
+  "type": "module",
+  "main": "dist/orchy-next-plugin.js",
+  "exports": {
+    ".": "./dist/orchy-next-plugin.js"
+  },
+  "types": "types/orchy-next-plugin.d.ts",
+  "files": [
+    "dist",
+    "types",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "coverage": "pnpm test --coverage",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "prepare": "pnpm build && pnpm lint:fix"
+  },
+  "dependencies": {
+    "@orchy-mfe/spa-adapter": "^0.1.1",
+    "import-html-entry": "^1.14.0",
+    "lit": "^2.6.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "@vitest/coverage-c8": "^0.28.4",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "happy-dom": "^8.2.6",
+    "prettier": "^2.8.3",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "rxjs": "^7.8.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vitest": "^0.28.4"
+  }
+}

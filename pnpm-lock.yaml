@@ -11,6 +11,7 @@ specifiers:
   eslint-plugin-simple-import-sort: ^10.0.0
   happy-dom: ^8.2.6
   import-html-entry: ^1.14.0
+  light-join: ^1.3.0
   lit: ^2.6.1
   prettier: ^2.8.3
   rollup-plugin-visualizer: ^5.9.0
@@ -22,6 +23,7 @@ specifiers:
 dependencies:
   '@orchy-mfe/spa-adapter': 0.1.1
   import-html-entry: 1.14.0
+  light-join: 1.3.0
   lit: 2.6.1
 
 devDependencies:
@@ -1346,6 +1348,10 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
+
+  /light-join/1.3.0:
+    resolution: {integrity: sha512-p33KqJJm8vMnk/V1oDnFEB/XNQ1HezsZ1FXaLslXAbebbFMl32OEVYJjoQ7UoMW3JywUCKTIpegFjp77JXhmLg==}
+    dev: false
 
   /lit-element/3.2.2:
     resolution: {integrity: sha512-6ZgxBR9KNroqKb6+htkyBwD90XGRiqKDHVrW/Eh0EZ+l+iC+u+v+w3/BA5NGi4nizAVHGYvQBHUDuSmLjPp7NQ==}

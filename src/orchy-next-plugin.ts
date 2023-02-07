@@ -13,19 +13,30 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     }
   }
 
+  private patchContent(orchyProperties: any | DocumentFragment) {
+    this.getContainer()
+      .querySelectorAll(RELATIVE_SRC_SELECTOR)
+      .forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
+  }
+
   private async manageTemplate(orchyProperties?: any): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
     const importedTemplate = document.createRange().createContextualFragment(importResult.template)
-    importedTemplate.querySelectorAll(RELATIVE_SRC_SELECTOR).forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
 
     this.getContainer().replaceChildren(importedTemplate)
     await importResult.execScripts()
+    // @ts-expect-error Configure next router
+    setTimeout(() => window.next.router.beforePopState(() => false), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {
     this.checkNextBase(orchyProperties)
     await this.manageTemplate(orchyProperties)
+
+    this.getContainer().addEventListener('DOMSubtreeModified', () =>
+      setTimeout(() => this.patchContent(orchyProperties), 0)
+    )
   }
 
   async unmount(): Promise<void> {

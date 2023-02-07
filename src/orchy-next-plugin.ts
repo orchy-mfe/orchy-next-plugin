@@ -1,7 +1,8 @@
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
 import {customElement} from 'lit/decorators.js'
 
-import {importHtml} from './importHtml'
+import {importHtml} from './import-html'
+import {beforePopStateAdapter, popStateAdapter} from './next-router-adapters'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
@@ -21,19 +22,6 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
       .forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
   }
 
-  private popStateHandlerBuilder = () => {
-    let previousHistoryLength = history.length
-    return ({url, as, options}: any) => {
-      if (history.length === previousHistoryLength) {
-        window.next.router.replace(url, as, options)
-        previousHistoryLength--
-      } else {
-        previousHistoryLength = history.length
-      }
-      return false
-    }
-  }
-
   private async manageTemplate(orchyProperties?: any): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
@@ -41,7 +29,7 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 
     this.getContainer().replaceChildren(importedTemplate)
     await importResult.execScripts()
-    setTimeout(() => window.next.router.beforePopState(this.popStateHandlerBuilder()), 0)
+    setTimeout(() => window.next.router.beforePopState(beforePopStateAdapter()), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {
@@ -51,11 +39,13 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     await this.manageTemplate(orchyProperties)
 
     this.getContainer().addEventListener('DOMSubtreeModified', this.modifiedDomHandler)
+    window.addEventListener('popstate', popStateAdapter)
   }
 
   async unmount(): Promise<void> {
     const container = this.getContainer()
     container.removeEventListener('DOMSubtreeModified', this.modifiedDomHandler as () => void)
+    window.removeEventListener('popstate', popStateAdapter)
     container.innerHTML = ''
   }
 

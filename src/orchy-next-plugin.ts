@@ -1,17 +1,9 @@
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
-import importHTML, {ImportEntryOpts} from 'import-html-entry'
-import {lightJoin} from 'light-join'
 import {customElement} from 'lit/decorators.js'
 
-const HTML_COMMENTS_REGEX = /<!--(.*?)-->/g
-const RELATIVE_SRC_SELECTOR = '[src^="/"]'
+import {importHtml} from './importHtml'
 
-const IMPORT_HTML_OPTIONS: ImportEntryOpts = {
-  postProcessTemplate: (templateResult) => {
-    templateResult.template = templateResult.template.replace(HTML_COMMENTS_REGEX, '')
-    return templateResult
-  }
-}
+const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
 @customElement('orchy-next-plugin')
 export class OrchyStoragePlugin extends OrchySpaAdapter {
@@ -21,13 +13,8 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     }
   }
 
-  private retrieveImportUrl(orchyProperties?: any): string {
-    const pathname = location.pathname.replace(orchyProperties.basePath, '')
-    return lightJoin(orchyProperties.nextBase, pathname)
-  }
-
   private async manageTemplate(orchyProperties?: any): Promise<void> {
-    const importResult = await importHTML(this.retrieveImportUrl(orchyProperties), IMPORT_HTML_OPTIONS)
+    const importResult = await importHtml(orchyProperties)
 
     const importedTemplate = document.createRange().createContextualFragment(importResult.template)
     importedTemplate.querySelectorAll(RELATIVE_SRC_SELECTOR).forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))

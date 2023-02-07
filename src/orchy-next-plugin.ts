@@ -4,7 +4,6 @@ import {lightJoin} from 'light-join'
 import {customElement} from 'lit/decorators.js'
 
 const HTML_COMMENTS_REGEX = /<!--(.*?)-->/g
-const RELATIVE_HREF_SELECTOR = '[href^="/"]'
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
 const IMPORT_HTML_OPTIONS: ImportEntryOpts = {
@@ -22,11 +21,15 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     }
   }
 
+  private retrieveImportUrl(orchyProperties?: any): string {
+    const pathname = location.pathname.replace(orchyProperties.basePath, '')
+    return lightJoin(orchyProperties.nextBase, pathname)
+  }
+
   private async manageTemplate(orchyProperties?: any): Promise<void> {
-    const importResult = await importHTML(lightJoin(orchyProperties.nextBase, orchyProperties.nextPath), IMPORT_HTML_OPTIONS)
+    const importResult = await importHTML(this.retrieveImportUrl(orchyProperties), IMPORT_HTML_OPTIONS)
 
     const importedTemplate = document.createRange().createContextualFragment(importResult.template)
-    importedTemplate.querySelectorAll(RELATIVE_HREF_SELECTOR).forEach(element => element.setAttribute('href', orchyProperties.nextBase + element.getAttribute('href')))
     importedTemplate.querySelectorAll(RELATIVE_SRC_SELECTOR).forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
 
     this.getContainer().replaceChildren(importedTemplate)

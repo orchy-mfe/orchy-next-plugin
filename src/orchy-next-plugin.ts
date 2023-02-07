@@ -7,6 +7,8 @@ const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
 @customElement('orchy-next-plugin')
 export class OrchyStoragePlugin extends OrchySpaAdapter {
+  private modifiedDomHandler?: () => number
+
   private checkNextBase(orchyProperties?: any) {
     if (!orchyProperties.nextBase) {
       throw new Error('nextBase has not been defined')
@@ -44,15 +46,17 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 
   async mount(orchyProperties?: any): Promise<void> {
     this.checkNextBase(orchyProperties)
+    this.modifiedDomHandler = () => setTimeout(() => this.patchContent(orchyProperties), 0)
+
     await this.manageTemplate(orchyProperties)
 
-    this.getContainer().addEventListener('DOMSubtreeModified', () =>
-      setTimeout(() => this.patchContent(orchyProperties), 0)
-    )
+    this.getContainer().addEventListener('DOMSubtreeModified', this.modifiedDomHandler)
   }
 
   async unmount(): Promise<void> {
-    this.getContainer().innerHTML = ''
+    const container = this.getContainer()
+    container.removeEventListener('DOMSubtreeModified', this.modifiedDomHandler as () => void)
+    container.innerHTML = ''
   }
 
 }

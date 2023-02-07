@@ -19,6 +19,19 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
       .forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
   }
 
+  private popStateHandlerBuilder = () => {
+    let previousHistoryLength = history.length
+    return ({url, as, options}: any) => {
+      if (history.length === previousHistoryLength) {
+        window.next.router.replace(url, as, options)
+        previousHistoryLength--
+      } else {
+        previousHistoryLength = history.length
+      }
+      return false
+    }
+  }
+
   private async manageTemplate(orchyProperties?: any): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
@@ -26,8 +39,7 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 
     this.getContainer().replaceChildren(importedTemplate)
     await importResult.execScripts()
-    // @ts-expect-error Configure next router
-    setTimeout(() => window.next.router.beforePopState(() => false), 0)
+    setTimeout(() => window.next.router.beforePopState(this.popStateHandlerBuilder()), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {
@@ -48,5 +60,9 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 declare global {
   interface HTMLElementTagNameMap {
     'orchy-next-plugin': OrchyStoragePlugin
+  }
+
+  interface Window {
+    next: any;
   }
 }

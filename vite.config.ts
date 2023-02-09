@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
-import { visualizer } from 'rollup-plugin-visualizer'
-import { defineConfig } from 'vite'
+import {visualizer} from 'rollup-plugin-visualizer'
+import {defineConfig} from 'vite'
 
 export default defineConfig({
   plugins: [visualizer()],
@@ -8,7 +8,6 @@ export default defineConfig({
     lib: {
       entry: {
         'orchy-next-plugin': 'src/orchy-next-plugin.ts',
-        'orchy-next-plugin-utils': 'src/orchy-next-plugin-utils.ts'
       },
       formats: ['es']
     },

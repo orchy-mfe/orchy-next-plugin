@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap } from 'lit';
+import {LitElement, PropertyValueMap} from 'lit'
 export declare class OrchyStoragePlugin extends LitElement {
     strategy: 'local' | 'session'
     private eventBus?

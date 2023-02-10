@@ -31,7 +31,7 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     this.getContainer().replaceChildren(importedTemplate)
     const windowProxy = createWindowProxy()
     await importResult.execScripts(windowProxy)
-    setTimeout(() => windowProxy.next.router.beforePopState(beforePopStateAdapter()), 0)
+    setTimeout(() => windowProxy.next.router.beforePopState(beforePopStateAdapter(windowProxy)), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {

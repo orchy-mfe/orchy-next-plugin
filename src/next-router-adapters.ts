@@ -1,4 +1,4 @@
-export const beforePopStateAdapter = () => {
+export const beforePopStateAdapter = (window: Window) => {
     let previousHistoryLength = history.length
     return ({url, as, options}: any) => {
         if (history.length === previousHistoryLength) {

@@ -3,6 +3,7 @@ import {customElement} from 'lit/decorators.js'
 
 import {importHtml} from './import-html'
 import {beforePopStateAdapter, popStateAdapter} from './next-router-adapters'
+import {createWindowProxy} from './window-proxy'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
@@ -28,8 +29,9 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
     const importedTemplate = document.createRange().createContextualFragment(importResult.template)
 
     this.getContainer().replaceChildren(importedTemplate)
-    await importResult.execScripts()
-    setTimeout(() => window.next.router.beforePopState(beforePopStateAdapter()), 0)
+    const windowProxy = createWindowProxy()
+    await importResult.execScripts(windowProxy)
+    setTimeout(() => windowProxy.next.router.beforePopState(beforePopStateAdapter()), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {

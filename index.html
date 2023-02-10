@@ -9,11 +9,10 @@
   </head>
   <body>
     <script type="module">
-      import {ReplaySubject} from 'rxjs'
-      const eventBus = new ReplaySubject()
-
       const plugin = document.createElement('orchy-next-plugin')
-      plugin.eventBus = eventBus
+      plugin.orchyProperties = {
+        nextBase: 'http://localhost:3002'
+      }
 
       document.body.appendChild(plugin)
     </script>

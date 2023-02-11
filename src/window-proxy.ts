@@ -9,7 +9,7 @@ export const createWindowProxy = () => {
                 return proxy
             }
 
-            const returnValue = fakeWindow[property] || window[property]
+            const returnValue = fakeWindow[property] || target[property]
 
             if(typeof returnValue === 'function') {
                 return returnValue.bind(target)

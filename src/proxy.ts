@@ -58,15 +58,15 @@ const createWindowProxy = () => {
     const fakeWindow = Object.create(null)
 
     const proxy: any = new Proxy(window, {
-        get: (target: Window, property: any) => {
+        get: (target: Window, property: string) => {
             if (PROXY_AVOID_KEYS.includes(property)) {
                 return proxy
             }
 
-            const returnValue = fakeWindow[property] || target[property]
+            const finalTarget = fakeWindow[property] ? fakeWindow : target
+            const returnValue = finalTarget[property]
             if(typeof returnValue === 'function') {
-                const toBind = fakeWindow[property] ? fakeWindow : target
-                return returnValue.bind(toBind)
+                return returnValue.bind(finalTarget)
             }
             return returnValue
         },

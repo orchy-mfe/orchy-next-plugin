@@ -26,10 +26,10 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
   private async manageTemplate(orchyProperties?: any): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
-    const importedTemplate = document.createRange().createContextualFragment(importResult.template)
+    const importedTemplate = new DOMParser().parseFromString(importResult.template, 'text/html')
 
     const container = this.getContainer()
-    container.replaceChildren(importedTemplate)
+    container.replaceChildren(importedTemplate.documentElement)
 
     const proxy = createProxy(container)
     await importResult.execScripts(proxy, true, {scopedGlobalVariables: PROXIFIED_GLOBALS})

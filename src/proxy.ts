@@ -2,7 +2,7 @@ import {execScripts} from 'import-html-entry'
 
 const GLOBAL_CONTEXT = ['window', 'self', 'globalThis']
 const PROXY_AVOID_KEYS = ['top', 'parent', ...GLOBAL_CONTEXT]
-const DOCUMENT_REDIRECT_KEYS = ['querySelector', 'querySelectorAll', 'getElementById', 'body']
+const DOCUMENT_REDIRECT_KEYS = ['querySelector', 'querySelectorAll', 'getElementById', 'body', 'getElementsByTagName']
 const SCRIPT_TAG = 'SCRIPT'
 
 export const PROXIFIED_GLOBALS = [...GLOBAL_CONTEXT, 'document']

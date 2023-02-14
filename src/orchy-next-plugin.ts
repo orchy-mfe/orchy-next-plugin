@@ -2,7 +2,7 @@ import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
 import {customElement} from 'lit/decorators.js'
 
 import {importHtml} from './import-html'
-import {popStateAdapter} from './next-router-adapters'
+import {beforePopStateAdapter, popStateAdapter} from './next-router-adapters'
 import {createProxy, PROXIFIED_GLOBALS} from './proxy'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
@@ -33,6 +33,7 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 
     const proxy = createProxy(container)
     await importResult.execScripts(proxy, true, {scopedGlobalVariables: PROXIFIED_GLOBALS})
+    setTimeout(() => proxy.window.next.router.beforePopState(beforePopStateAdapter(proxy.window)), 0)
   }
 
   async mount(orchyProperties?: any): Promise<void> {

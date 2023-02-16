@@ -5,7 +5,7 @@ const PROXY_AVOID_KEYS = ['top', 'parent', ...GLOBAL_CONTEXT]
 const DOCUMENT_REDIRECT_KEYS = ['querySelector', 'querySelectorAll', 'getElementById', 'body', 'getElementsByTagName']
 const SCRIPT_TAG = 'SCRIPT'
 
-export const PROXIFIED_GLOBALS = [...GLOBAL_CONTEXT, 'document']
+export const PROXIFIED_GLOBALS = [...GLOBAL_CONTEXT, 'document', 'performance']
 
 const patchContainer = (container: HTMLElement, window: Window) => {
     // @ts-expect-error only document has getElementById
@@ -63,7 +63,7 @@ const createWindowProxy = () => {
                 return proxy
             }
 
-            const finalTarget = fakeWindow[property] ? fakeWindow : target
+            const finalTarget = property in fakeWindow ? fakeWindow : target
             const returnValue = finalTarget[property]
             if(typeof returnValue === 'function') {
                 return returnValue.bind(finalTarget)
@@ -93,11 +93,13 @@ export const createProxy = (container: HTMLElement): NextProxy => {
     const documentProxy = createDocumentProxy(container, windowProxy)
 
     fakeWindow.document = documentProxy
+    fakeWindow.performance = undefined
 
     return {
         globalThis: windowProxy,
         self: windowProxy,
         window: windowProxy,
         document: documentProxy,
+        performance: undefined
     }
 }

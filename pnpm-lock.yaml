@@ -10,7 +10,7 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-simple-import-sort: ^10.0.0
   happy-dom: ^8.3.2
-  import-html-entry: ^1.14.1
+  import-html-entry: ^1.14.3
   light-join: ^1.3.0
   lit: ^2.6.1
   prettier: ^2.8.4
@@ -22,7 +22,7 @@ specifiers:
 
 dependencies:
   '@orchy-mfe/spa-adapter': 0.1.1
-  import-html-entry: 1.14.1
+  import-html-entry: 1.14.3
   light-join: 1.3.0
   lit: 2.6.1
 
@@ -1219,8 +1219,8 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /import-html-entry/1.14.1:
-    resolution: {integrity: sha512-Hcl4Ll7hLcabsDoUesNEP+IUE+53T0J5w+zk+B+AhnVq/Zpz+EhP8R5LktASooTWjYJsWt0sZQljbwmcR3R9Bw==}
+  /import-html-entry/1.14.3:
+    resolution: {integrity: sha512-bQOxi0vgebkDjYf510XiRgsRNZR3idBiBXAjJtzOzIO1ukSj+h/lIM3zx7poZiJVMMUuwjiEkYLlvmJNhKw85A==}
     dependencies:
       '@babel/runtime': 7.20.13
     dev: false

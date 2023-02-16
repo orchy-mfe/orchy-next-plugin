@@ -1,11 +1,9 @@
-export const beforePopStateAdapter = () => {
-    let previousHistoryLength = history.length
+export const beforePopStateAdapter = (window: Window) => {
+    let lastUrl: string | undefined = undefined
     return ({url, as, options}: any) => {
-        if (history.length === previousHistoryLength) {
+        if(lastUrl !== url) {
             window.next.router.replace(url, as, options)
-            previousHistoryLength--
-        } else {
-            previousHistoryLength = history.length
+            lastUrl = url
         }
         return false
     }

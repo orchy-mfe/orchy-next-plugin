@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@orchy-mfe/models': ^0.3.0
   '@orchy-mfe/spa-adapter': ^0.1.1
   '@typescript-eslint/eslint-plugin': ^5.52.0
   '@typescript-eslint/parser': ^5.52.0
@@ -27,6 +28,7 @@ dependencies:
   lit: 2.6.1
 
 devDependencies:
+  '@orchy-mfe/models': 0.3.0
   '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
   '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
   '@vitest/coverage-c8': 0.28.5_happy-dom@8.4.4
@@ -340,6 +342,12 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: true
+
+  /@orchy-mfe/models/0.3.0:
+    resolution: {integrity: sha512-SveY0mqzawNVBmHXV0cAA5Y3eBKoe4LcblkZzWIE/XV6UD9CDDBSdvdJ63Rsofgsry6rSEd6+uMVPZg5JpiEsA==}
+    dependencies:
+      rxjs: 7.8.0
     dev: true
 
   /@orchy-mfe/spa-adapter/0.1.1:

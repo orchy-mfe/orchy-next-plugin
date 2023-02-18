@@ -1,16 +1,12 @@
-import { MicroFrontendProperties } from '@orchy-mfe/models'
+import {MicroFrontendProperties} from '@orchy-mfe/models'
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
-import { customElement } from 'lit/decorators.js'
+import {customElement} from 'lit/decorators.js'
 
-import { importHtml } from './import-html'
-import { beforePopStateAdapter, popStateAdapter } from './next-router-adapters'
-import { createProxy, PROXIFIED_GLOBALS } from './proxy'
+import {importHtml} from './import-html'
+import {beforePopStateAdapter, NextPluginProps, popStateAdapter} from './next-router-adapters'
+import {createProxy, PROXIFIED_GLOBALS} from './proxy'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
-
-type NextPluginProps = {
-  nextBase: string
-}
 
 @customElement('orchy-next-plugin')
 export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {

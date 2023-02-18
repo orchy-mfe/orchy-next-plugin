@@ -22,11 +22,11 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
   private patchContent(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
     const container = this.getContainer()
     container
-      .querySelectorAll(RELATIVE_SRC_SELECTOR)
+      .querySelectorAll<HTMLScriptElement>(RELATIVE_SRC_SELECTOR)
       .forEach(element => element.setAttribute('src', orchyProperties!.nextBase! + element.getAttribute('src')!))
 
     container
-      .querySelectorAll(RELATIVE_A_HREF_SELECTOR)
+      .querySelectorAll<HTMLAnchorElement>(RELATIVE_A_HREF_SELECTOR)
       .forEach(element => {
         const path = orchyProperties!.basePath + element.getAttribute('href')
         element.setAttribute('href', window.location.origin + path)

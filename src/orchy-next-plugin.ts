@@ -7,6 +7,7 @@ import {beforePopStateAdapter, NextPluginProps, popStateAdapter} from './next-ro
 import {createProxy, PROXIFIED_GLOBALS} from './proxy'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
+const RELATIVE_A_HREF_SELECTOR = 'a[href^="/"]'
 
 @customElement('orchy-next-plugin')
 export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
@@ -23,6 +24,18 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
     container
       .querySelectorAll(RELATIVE_SRC_SELECTOR)
       .forEach(element => element.setAttribute('src', orchyProperties!.nextBase! + element.getAttribute('src')!))
+
+    container
+      .querySelectorAll(RELATIVE_A_HREF_SELECTOR)
+      .forEach(element => {
+        const path = orchyProperties!.basePath + element.getAttribute('href')
+        element.setAttribute('href', window.location.origin + path)
+        element.addEventListener('click', (event: Event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          history.pushState({path}, '', path)
+        })
+      })
   }
 
   private async manageTemplate(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {

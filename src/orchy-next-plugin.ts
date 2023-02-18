@@ -8,7 +8,7 @@ import {createProxy, PROXIFIED_GLOBALS} from './proxy'
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
 @customElement('orchy-next-plugin')
-export class OrchyStoragePlugin extends OrchySpaAdapter {
+export class OrchyNextPlugin extends OrchySpaAdapter {
   private modifiedDomHandler?: () => number
 
   private checkNextBase(orchyProperties?: any) {
@@ -57,7 +57,7 @@ export class OrchyStoragePlugin extends OrchySpaAdapter {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'orchy-next-plugin': OrchyStoragePlugin
+    'orchy-next-plugin': OrchyNextPlugin
   }
 
   interface Window {

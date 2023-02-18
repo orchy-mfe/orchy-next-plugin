@@ -1,29 +1,34 @@
+import { MicroFrontendProperties } from '@orchy-mfe/models'
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
-import {customElement} from 'lit/decorators.js'
+import { customElement } from 'lit/decorators.js'
 
-import {importHtml} from './import-html'
-import {beforePopStateAdapter, popStateAdapter} from './next-router-adapters'
-import {createProxy, PROXIFIED_GLOBALS} from './proxy'
+import { importHtml } from './import-html'
+import { beforePopStateAdapter, popStateAdapter } from './next-router-adapters'
+import { createProxy, PROXIFIED_GLOBALS } from './proxy'
 
 const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 
+type NextPluginProps = {
+  nextBase: string
+}
+
 @customElement('orchy-next-plugin')
-export class OrchyNextPlugin extends OrchySpaAdapter {
+export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
   private modifiedDomHandler?: () => number
 
-  private checkNextBase(orchyProperties?: any) {
-    if (!orchyProperties.nextBase) {
+  private checkNextBase(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
+    if (!orchyProperties?.nextBase) {
       throw new Error('nextBase has not been defined')
     }
   }
 
-  private patchContent(orchyProperties: any | DocumentFragment) {
+  private patchContent(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
     this.getContainer()
       .querySelectorAll(RELATIVE_SRC_SELECTOR)
-      .forEach(element => element.setAttribute('src', orchyProperties.nextBase + element.getAttribute('src')))
+      .forEach(element => element.setAttribute('src', orchyProperties!.nextBase! + element.getAttribute('src')!))
   }
 
-  private async manageTemplate(orchyProperties?: any): Promise<void> {
+  private async manageTemplate(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
     const importedTemplate = new DOMParser().parseFromString(importResult.template, 'text/html')
@@ -36,7 +41,7 @@ export class OrchyNextPlugin extends OrchySpaAdapter {
     setTimeout(() => proxy.window.next.router.beforePopState(beforePopStateAdapter(proxy.window)), 0)
   }
 
-  async mount(orchyProperties?: any): Promise<void> {
+  async mount(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {
     this.checkNextBase(orchyProperties)
     this.modifiedDomHandler = () => setTimeout(() => this.patchContent(orchyProperties), 0)
 

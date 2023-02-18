@@ -23,7 +23,8 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
   }
 
   private patchContent(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
-    this.getContainer()
+    const container = this.getContainer()
+    container
       .querySelectorAll(RELATIVE_SRC_SELECTOR)
       .forEach(element => element.setAttribute('src', orchyProperties!.nextBase! + element.getAttribute('src')!))
   }
@@ -38,7 +39,7 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
 
     const proxy = createProxy(container)
     await importResult.execScripts(proxy, true, {scopedGlobalVariables: PROXIFIED_GLOBALS})
-    setTimeout(() => proxy.window.next.router.beforePopState(beforePopStateAdapter(proxy.window)), 0)
+    setTimeout(() => proxy.window.next.router.beforePopState(beforePopStateAdapter(proxy.window, orchyProperties)), 0)
   }
 
   async mount(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {

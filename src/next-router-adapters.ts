@@ -1,9 +1,12 @@
-export const beforePopStateAdapter = (window: Window) => {
+import { MicroFrontendProperties } from "@orchy-mfe/models"
+
+export const beforePopStateAdapter = (window: Window, orchyProperties?: MicroFrontendProperties) => {
     let lastUrl: string | undefined = undefined
     return ({url, as, options}: any) => {
-        if(lastUrl !== url) {
-            window.next.router.replace(url, as, options)
-            lastUrl = url
+        const urlWithoutBase = url.replace(orchyProperties!.basePath, '') || '/'
+        if (lastUrl !== urlWithoutBase) {
+            window.next.router.replace(urlWithoutBase, as, options)
+            lastUrl = urlWithoutBase
         }
         return false
     }

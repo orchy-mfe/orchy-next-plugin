@@ -1,6 +1,8 @@
 ## orchy-next-plugin
 
-This plugin allows you render in `orchy` a `Next.js` application.
+This plugin allows you render in `orchy` a `Next.js` application as a Micro Frontend.
+
+**NOTE: this plugin will work only with Next.js v13 and without the new `app` directory experimental feature.**
 
 ### Plugin configuration
 

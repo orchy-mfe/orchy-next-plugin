@@ -1,5 +1,6 @@
 import {MicroFrontendProperties} from '@orchy-mfe/models'
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
+import lightJoin from 'light-join'
 import {customElement} from 'lit/decorators.js'
 
 import {importHtml} from './import-html'
@@ -23,13 +24,13 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
     const container = this.getContainer()
     container
       .querySelectorAll<HTMLScriptElement>(RELATIVE_SRC_SELECTOR)
-      .forEach(element => element.setAttribute('src', orchyProperties!.nextBase! + element.getAttribute('src')!))
+      .forEach(element => element.setAttribute('src', lightJoin(orchyProperties!.nextBase!, element.getAttribute('src')!)))
 
     container
       .querySelectorAll<HTMLAnchorElement>(RELATIVE_A_HREF_SELECTOR)
       .forEach(element => {
-        const path = orchyProperties!.basePath + element.getAttribute('href')
-        element.setAttribute('href', window.location.origin + path)
+        const path = lightJoin(orchyProperties!.basePath, element.getAttribute('href'))
+        element.setAttribute('href', lightJoin(window.location.origin, path))
         element.addEventListener('click', (event: Event) => {
           event.preventDefault()
           event.stopPropagation()

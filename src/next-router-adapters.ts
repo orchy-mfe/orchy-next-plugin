@@ -1,4 +1,4 @@
-import {MicroFrontendProperties} from '@orchy-mfe/models'
+import { MicroFrontendProperties } from '@orchy-mfe/models'
 
 export type NextPluginProps = {
     nextBase: string

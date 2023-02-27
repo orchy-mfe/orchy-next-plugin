@@ -1,4 +1,4 @@
-import {execScripts} from 'import-html-entry'
+import { execScripts } from 'import-html-entry'
 
 const GLOBAL_CONTEXT = ['window', 'self', 'globalThis']
 const PROXY_AVOID_KEYS = ['top', 'parent', ...GLOBAL_CONTEXT]
@@ -13,6 +13,9 @@ const patchContainer = (container: HTMLElement, window: Window) => {
 
     // @ts-expect-error only document has body
     container.body = container
+
+    // @ts-expect-error only document has body
+    container.head = container
 
     const rawAppendChild = container.appendChild.bind(container)
 

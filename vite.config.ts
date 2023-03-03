@@ -1,9 +1,15 @@
 /// <reference types="vitest" />
 import {visualizer} from 'rollup-plugin-visualizer'
 import {defineConfig} from 'vite'
+import EnvironmentPlugin from 'vite-plugin-environment'
 
 export default defineConfig({
-  plugins: [visualizer()],
+  plugins: [
+    visualizer(),
+    EnvironmentPlugin({
+      NODE_ENV: 'development',
+    }),
+  ],
   build: {
     lib: {
       entry: {

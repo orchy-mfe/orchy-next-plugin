@@ -1,10 +1,10 @@
 import {MicroFrontendProperties} from '@orchy-mfe/models'
 
-export type NextPluginProps = {
+export type NextPluginProps = MicroFrontendProperties & {
     nextBase: string
 }
 
-export const beforePopStateAdapter = (window: Window, orchyProperties?: MicroFrontendProperties<NextPluginProps>) => {
+export const beforePopStateAdapter = (window: Window, orchyProperties?: NextPluginProps) => {
     let lastUrl: string | undefined = undefined
     return ({url, as, options}: any) => {
         const urlWithoutBase = url.replace(orchyProperties!.basePath, '') || '/'

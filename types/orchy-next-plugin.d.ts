@@ -3,7 +3,6 @@ import { NextPluginProps } from './next-router-adapters';
 export declare class OrchyNextPlugin extends OrchySpaAdapter {
     private modifiedDomHandler?;
     private checkNextBase;
-    private patchContent;
     private manageTemplate;
     mount(orchyProperties?: NextPluginProps): Promise<void>;
     unmount(): Promise<void>;

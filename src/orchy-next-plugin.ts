@@ -1,13 +1,9 @@
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
-import lightJoin from 'light-join'
 import {customElement} from 'lit/decorators.js'
 
-import {importHtml} from './import-html'
+import {importHtml, patchElement} from './import-html'
 import {beforePopStateAdapter, NextPluginProps, popStateAdapter} from './next-router-adapters'
 import {createProxy, PROXIFIED_GLOBALS} from './proxy'
-
-const RELATIVE_SRC_SELECTOR = '[src^="/"]'
-const RELATIVE_A_HREF_SELECTOR = 'a[href^="/"]'
 
 @customElement('orchy-next-plugin')
 export class OrchyNextPlugin extends OrchySpaAdapter {
@@ -17,25 +13,6 @@ export class OrchyNextPlugin extends OrchySpaAdapter {
     if (!orchyProperties?.nextBase) {
       throw new Error('nextBase has not been defined')
     }
-  }
-
-  private patchContent(orchyProperties?: NextPluginProps) {
-    const container = this.getContainer()
-    container
-      .querySelectorAll<HTMLScriptElement>(RELATIVE_SRC_SELECTOR)
-      .forEach(element => element.setAttribute('src', lightJoin(orchyProperties!.nextBase!, element.getAttribute('src')!)))
-
-    container
-      .querySelectorAll<HTMLAnchorElement>(RELATIVE_A_HREF_SELECTOR)
-      .forEach(element => {
-        const path = lightJoin(orchyProperties!.basePath, element.getAttribute('href'))
-        element.setAttribute('href', lightJoin(window.location.origin, path))
-        element.addEventListener('click', (event: Event) => {
-          event.preventDefault()
-          event.stopPropagation()
-          history.pushState({path}, '', path)
-        })
-      })
   }
 
   private async manageTemplate(orchyProperties?: NextPluginProps): Promise<void> {
@@ -53,7 +30,7 @@ export class OrchyNextPlugin extends OrchySpaAdapter {
 
   async mount(orchyProperties?: NextPluginProps): Promise<void> {
     this.checkNextBase(orchyProperties)
-    this.modifiedDomHandler = () => setTimeout(() => this.patchContent(orchyProperties), 0)
+    this.modifiedDomHandler = () => setTimeout(() => patchElement(this.getContainer(), orchyProperties!), 0)
 
     await this.manageTemplate(orchyProperties)
 

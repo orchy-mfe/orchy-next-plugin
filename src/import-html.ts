@@ -24,17 +24,20 @@ export const patchElement = (htmlElement: HTMLElement | Document, orchyPropertie
         .querySelectorAll<HTMLScriptElement>(RELATIVE_SRC_SELECTOR)
         .forEach(element => element.setAttribute('src', lightJoin(orchyProperties!.nextBase!, element.getAttribute('src')!)))
 
-    htmlElement
-        .querySelectorAll<HTMLAnchorElement>(RELATIVE_A_HREF_SELECTOR)
-        .forEach(element => {
-            const path = lightJoin(orchyProperties!.basePath, element.getAttribute('href'))
-            element.setAttribute('href', lightJoin(window.location.origin, path))
-            element.addEventListener('click', (event: Event) => {
-                event.preventDefault()
-                event.stopPropagation()
-                history.pushState({path}, '', path)
+    if (htmlElement instanceof HTMLElement) {
+        htmlElement
+            .querySelectorAll<HTMLAnchorElement>(RELATIVE_A_HREF_SELECTOR)
+            .forEach(element => {
+                const path = lightJoin(orchyProperties!.basePath, element.getAttribute('href'))
+                element.setAttribute('href', lightJoin(window.location.origin, path))
+                element.addEventListener('click', (event: Event) => {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    history.pushState({path}, '', path)
+                })
             })
-        })
+
+    }
 }
 
 const importHtmlBuilder = (orchyProperties: NextPluginProps): ImportEntryOpts => {

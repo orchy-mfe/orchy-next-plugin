@@ -18,12 +18,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "postbuild": "pnpm lint:fix",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "coverage": "pnpm test --coverage",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
-    "prepare": "pnpm build && pnpm lint:fix"
+    "prepare": "pnpm build"
   },
   "dependencies": {
     "@orchy-mfe/spa-adapter": "^0.1.1",

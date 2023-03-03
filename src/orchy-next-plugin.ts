@@ -1,4 +1,5 @@
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
+import lightJoin from 'light-join'
 import {customElement} from 'lit/decorators.js'
 
 import {importHtml, patchElement} from './import-html'
@@ -12,6 +13,12 @@ export class OrchyNextPlugin extends OrchySpaAdapter {
   private checkNextBase(orchyProperties?: NextPluginProps) {
     if (!orchyProperties?.nextBase) {
       throw new Error('nextBase has not been defined')
+    }
+
+    if(orchyProperties.nextBase.startsWith('/')) {
+      orchyProperties.nextBase = lightJoin(location.origin, orchyProperties.nextBase)
+    } else if (orchyProperties.nextBase.startsWith('./')) {
+      orchyProperties.nextBase = lightJoin(location.href, orchyProperties.nextBase)
     }
   }
 

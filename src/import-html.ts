@@ -50,10 +50,6 @@ const importHtmlBuilder = (orchyProperties: NextPluginProps): ImportEntryOpts =>
             patchElement(parsedTemplate, orchyProperties)
 
             return parsedTemplate.documentElement.innerHTML
-        },
-        postProcessTemplate: (templateResult) => {
-            templateResult.template = templateResult.template.replace(HTML_COMMENTS_REGEX, '')
-            return templateResult
         }
     }
 }
@@ -63,4 +59,13 @@ const retrieveImportUrl = (orchyProperties: NextPluginProps): string => {
     return lightJoin(orchyProperties.nextBase, pathname)
 }
 
-export const importHtml = (orchyProperties?: NextPluginProps) => importHTML(retrieveImportUrl(orchyProperties!), importHtmlBuilder(orchyProperties!))
+export const importHtml = async (orchyProperties?: NextPluginProps) => {
+    const importedHtml = await importHTML(retrieveImportUrl(orchyProperties!), importHtmlBuilder(orchyProperties!))
+
+    const templateWithoutComments = importedHtml.template.replace(HTML_COMMENTS_REGEX, '')
+
+    return {
+        documentElement: new DOMParser().parseFromString(templateWithoutComments, 'text/html').documentElement,
+        execScripts: importedHtml.execScripts.bind(importedHtml)
+    }
+}

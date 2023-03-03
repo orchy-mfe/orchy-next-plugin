@@ -25,10 +25,8 @@ export class OrchyNextPlugin extends OrchySpaAdapter {
   private async manageTemplate(orchyProperties?: NextPluginProps): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
-    const importedTemplate = new DOMParser().parseFromString(importResult.template, 'text/html')
-
     const container = this.getContainer()
-    container.replaceChildren(importedTemplate.documentElement)
+    container.replaceChildren(importResult.documentElement)
 
     const proxy = createProxy(container)
     await importResult.execScripts(proxy, true, {scopedGlobalVariables: PROXIFIED_GLOBALS})

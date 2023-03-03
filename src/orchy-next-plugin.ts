@@ -1,4 +1,3 @@
-import {MicroFrontendProperties} from '@orchy-mfe/models'
 import OrchySpaAdapter from '@orchy-mfe/spa-adapter'
 import lightJoin from 'light-join'
 import {customElement} from 'lit/decorators.js'
@@ -11,16 +10,16 @@ const RELATIVE_SRC_SELECTOR = '[src^="/"]'
 const RELATIVE_A_HREF_SELECTOR = 'a[href^="/"]'
 
 @customElement('orchy-next-plugin')
-export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
+export class OrchyNextPlugin extends OrchySpaAdapter {
   private modifiedDomHandler?: () => number
 
-  private checkNextBase(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
+  private checkNextBase(orchyProperties?: NextPluginProps) {
     if (!orchyProperties?.nextBase) {
       throw new Error('nextBase has not been defined')
     }
   }
 
-  private patchContent(orchyProperties?: MicroFrontendProperties<NextPluginProps>) {
+  private patchContent(orchyProperties?: NextPluginProps) {
     const container = this.getContainer()
     container
       .querySelectorAll<HTMLScriptElement>(RELATIVE_SRC_SELECTOR)
@@ -39,7 +38,7 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
       })
   }
 
-  private async manageTemplate(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {
+  private async manageTemplate(orchyProperties?: NextPluginProps): Promise<void> {
     const importResult = await importHtml(orchyProperties)
 
     const importedTemplate = new DOMParser().parseFromString(importResult.template, 'text/html')
@@ -52,7 +51,7 @@ export class OrchyNextPlugin extends OrchySpaAdapter<NextPluginProps> {
     setTimeout(() => proxy.window.next.router.beforePopState(beforePopStateAdapter(proxy.window, orchyProperties)), 0)
   }
 
-  async mount(orchyProperties?: MicroFrontendProperties<NextPluginProps>): Promise<void> {
+  async mount(orchyProperties?: NextPluginProps): Promise<void> {
     this.checkNextBase(orchyProperties)
     this.modifiedDomHandler = () => setTimeout(() => this.patchContent(orchyProperties), 0)
 

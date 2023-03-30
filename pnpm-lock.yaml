@@ -5,8 +5,8 @@ dependencies:
     specifier: ^0.1.1
     version: 0.1.1
   import-html-entry:
-    specifier: ^1.14.5
-    version: 1.14.5
+    specifier: ^1.14.6
+    version: 1.14.6
   light-join:
     specifier: ^1.3.0
     version: 1.3.0
@@ -1248,8 +1248,8 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /import-html-entry@1.14.5:
-    resolution: {integrity: sha512-aJZcoDUSCUxnedikGQD4ervV6hA3q7mMqNK4lXi4/VnAfu+ytwPoMWV/Ah2Q70JBFUdtttsAxeZwoGf3eiSCZw==}
+  /import-html-entry@1.14.6:
+    resolution: {integrity: sha512-5MQkbwIr8n/bXOoE05M5/Nm0lnHO46vnb3D6svSvtVwpDqwhd/X14zjLcU31QWZ6gL8rUXNzj6vKHx4yOUL6gQ==}
     dependencies:
       '@babel/runtime': 7.20.13
     dev: false

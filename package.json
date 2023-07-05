@@ -41,7 +41,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "happy-dom": "^9.20.3",
+    "happy-dom": "^10.0.3",
     "prettier": "^3.0.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "rxjs": "^7.8.1",

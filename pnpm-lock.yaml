@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.1.1
     version: 0.1.1
   import-html-entry:
-    specifier: ^1.15.0
-    version: 1.15.0
+    specifier: ^1.15.1
+    version: 1.15.1
   light-join:
     specifier: ^1.3.0
     version: 1.3.0
@@ -1342,8 +1342,8 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /import-html-entry@1.15.0:
-    resolution: {integrity: sha512-ZVj8sqSuJV0O8cdzyNU8RLrVzO5+nIySxAZuG/rJtmdQ4GOPqiu+frbVR29EFusDTs0JZ+m+cxwjMToEMZvv3A==}
+  /import-html-entry@1.15.1:
+    resolution: {integrity: sha512-flVVS3lQTaHUUEF/zByio0WHdJRMNwT/1sI48/ps9VVGWNn+oE1wuX+fBRZkXLKAeggVVmfU41MpgNnZ7I9nRg==}
     dependencies:
       '@babel/runtime': 7.20.13
     dev: false

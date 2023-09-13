@@ -44,8 +44,8 @@ devDependencies:
     specifier: ^10.0.0
     version: 10.0.0(eslint@8.49.0)
   happy-dom:
-    specifier: ^11.0.5
-    version: 11.0.5
+    specifier: ^11.0.6
+    version: 11.0.6
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -66,7 +66,7 @@ devDependencies:
     version: 1.1.3(vite@4.4.9)
   vitest:
     specifier: ^0.34.4
-    version: 0.34.4(happy-dom@11.0.5)
+    version: 0.34.4(happy-dom@11.0.6)
 
 packages:
 
@@ -625,7 +625,7 @@ packages:
       magic-string: 0.30.1
       picocolors: 1.0.0
       std-env: 3.3.3
-      vitest: 0.34.4(happy-dom@11.0.5)
+      vitest: 0.34.4(happy-dom@11.0.6)
     dev: true
 
   /@vitest/expect@0.34.4:
@@ -1292,8 +1292,8 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /happy-dom@11.0.5:
-    resolution: {integrity: sha512-l3wkk4lW7QiboAZL2+F3mDN+1tQoNDwLF1Ya8iHEO7pORzQPdGm7kWSAiOgkGNskfrzCV9Pp9jVwgn6vWgRaUA==}
+  /happy-dom@11.0.6:
+    resolution: {integrity: sha512-GiNIoNhc/ZAvB2r3tc1DRvRSUaMt4A4Ub0IVpxURxsIqks1Q1UnNsdY9uwVjAT4B6DGHVmSOdqL5S5BNim8o+g==}
     dependencies:
       css.escape: 1.5.1
       entities: 4.5.0
@@ -2148,7 +2148,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest@0.34.4(happy-dom@11.0.5):
+  /vitest@0.34.4(happy-dom@11.0.6):
     resolution: {integrity: sha512-SE/laOsB6995QlbSE6BtkpXDeVNLJc1u2LHRG/OpnN4RsRzM3GQm4nm3PQCK5OBtrsUqnhzLdnT7se3aeNGdlw==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -2192,7 +2192,7 @@ packages:
       cac: 6.7.14
       chai: 4.3.7
       debug: 4.3.4
-      happy-dom: 11.0.5
+      happy-dom: 11.0.6
       local-pkg: 0.4.3
       magic-string: 0.30.1
       pathe: 1.1.1

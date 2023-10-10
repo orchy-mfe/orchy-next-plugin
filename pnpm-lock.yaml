@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.3.0
     version: 1.3.0
   lit:
-    specifier: ^2.8.0
-    version: 2.8.0
+    specifier: ^3.0.0
+    version: 3.0.0
 
 devDependencies:
   '@orchy-mfe/models':
@@ -399,10 +399,20 @@ packages:
     resolution: {integrity: sha512-92uQ5ARf7UXYrzaFcAX3T2rTvaS9Z1//ukV+DqjACM4c8s0ZBQd7ayJU5Dh2AFLD/Ayuyz4uMmxQec8q3U4Ong==}
     dev: false
 
+  /@lit-labs/ssr-dom-shim@1.1.2:
+    resolution: {integrity: sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==}
+    dev: false
+
   /@lit/reactive-element@1.6.1:
     resolution: {integrity: sha512-va15kYZr7KZNNPZdxONGQzpUr+4sxVu7V/VG7a8mRfPPXUyhEYj5RzXCQmGrlP3tAh0L3HHm5AjBMFYRqlM9SA==}
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.1.0
+    dev: false
+
+  /@lit/reactive-element@2.0.0:
+    resolution: {integrity: sha512-wn+2+uDcs62ROBmVAwssO4x5xue/uKD3MGGZOXL2sMxReTRIT0JXKyMXeu7gh0aJ4IJNEIG/3aOnUaQvM7BMzQ==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.1.2
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -1495,8 +1505,22 @@ packages:
       lit-html: 2.8.0
     dev: false
 
+  /lit-element@4.0.0:
+    resolution: {integrity: sha512-N6+f7XgusURHl69DUZU6sTBGlIN+9Ixfs3ykkNDfgfTkDYGGOWwHAYBhDqVswnFGyWgQYR2KiSpu4J76Kccs/A==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.1.2
+      '@lit/reactive-element': 2.0.0
+      lit-html: 3.0.0
+    dev: false
+
   /lit-html@2.8.0:
     resolution: {integrity: sha512-o9t+MQM3P4y7M7yNzqAyjp7z+mQGa4NS4CxiyLqFPyFWyc4O+nodLrkrxSaCTrla6M5YOLaT3RpbbqjszB5g3Q==}
+    dependencies:
+      '@types/trusted-types': 2.0.2
+    dev: false
+
+  /lit-html@3.0.0:
+    resolution: {integrity: sha512-DNJIE8dNY0dQF2Gs0sdMNUppMQT2/CvV4OVnSdg7BXAsGqkVwsE5bqQ04POfkYH5dBIuGnJYdFz5fYYyNnOxiA==}
     dependencies:
       '@types/trusted-types': 2.0.2
     dev: false
@@ -1507,6 +1531,14 @@ packages:
       '@lit/reactive-element': 1.6.1
       lit-element: 3.3.0
       lit-html: 2.8.0
+    dev: false
+
+  /lit@3.0.0:
+    resolution: {integrity: sha512-nQ0teRzU1Kdj++VdmttS2WvIen8M79wChJ6guRKIIym2M3Ansg3Adj9O6yuQh2IpjxiUXlNuS81WKlQ4iL3BmA==}
+    dependencies:
+      '@lit/reactive-element': 2.0.0
+      lit-element: 4.0.0
+      lit-html: 3.0.0
     dev: false
 
   /local-pkg@0.4.3:

@@ -53,8 +53,8 @@ devDependencies:
     specifier: ^5.12.0
     version: 5.12.0
   rxjs:
-    specifier: ^7.8.1
-    version: 7.8.1
+    specifier: ^7.8.2
+    version: 7.8.2
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -453,7 +453,7 @@ packages:
   /@orchy-mfe/models@0.3.0:
     resolution: {integrity: sha512-SveY0mqzawNVBmHXV0cAA5Y3eBKoe4LcblkZzWIE/XV6UD9CDDBSdvdJ63Rsofgsry6rSEd6+uMVPZg5JpiEsA==}
     dependencies:
-      rxjs: 7.8.1
+      rxjs: 7.8.2
     dev: true
 
   /@orchy-mfe/spa-adapter@0.1.1:
@@ -2076,10 +2076,10 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /rxjs@7.8.1:
-    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
+  /rxjs@7.8.2:
+    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: true
 
   /semver@6.3.0:
@@ -2245,10 +2245,6 @@ packages:
       typescript: '>=4.2.0'
     dependencies:
       typescript: 5.4.5
-    dev: true
-
-  /tslib@2.4.1:
-    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
     dev: true
 
   /tslib@2.6.2:
